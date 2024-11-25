@@ -2,7 +2,7 @@ import tkinter as tk
 import json
 
 def json_load():
-    with open('san14.json', 'r') as srcF:
+    with open('san14.json', 'r', encoding="utf-8") as srcF:
         srcJson = json.load(srcF)
 
     print(srcJson)
@@ -53,8 +53,8 @@ def json_data_generate():
         }
     }
 
-    with open("san14_test.json", 'w') as f:
-        json.dump(san14_data, f, indent=4)
+    with open("san14_test.json", 'w', encoding="utf-8") as f:
+        json.dump(san14_data, f, indent=4, ensure_ascii=False)
 
 if __name__ == '__main__':
 
