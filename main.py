@@ -1,11 +1,7 @@
 import tkinter as tk
-# import tkFont as tf
 import json
 from typing import List, Dict, Any
 
-
-global show_damage
-global enemy_morale_down
 
 def load_json(file_path: str) -> dict:
     """
@@ -187,7 +183,6 @@ def refresh_listbox():
 
         filtered_items.append(line)
 
-    
     # Clear the Listbox first
     new_Listbox.delete(0, tk.END)
 
@@ -200,46 +195,37 @@ def button_color(src_button, flag):
     else:
         src_button.config(bg='#FFD39B')
 
-def toggle_damage_lines(src_button, flag):
+    refresh_listbox()
+
+def toggle_damage_lines():
     """
     Toggle the visibility of lines in new_Listbox that contain '[傷害]'.
     """
-    # global show_damage
-
-    new_Listbox.delete(0, tk.END)  # Clear the Listbox first
-
-    if show_damage:
-        button_1.config(bg='#FF4040')
-    else:
-        button_1.config(bg='#FFD39B')
-
-    refresh_listbox()
+    global show_damage
 
     show_damage = not show_damage  # Toggle the state
-    
 
-def toggle_damage_lines_():
+    button_color(button_1, show_damage)
+
+def toggle_button2_lines():
     """
     Toggle the visibility of lines in new_Listbox that contain '[傷害]'.
     """
-    new_Listbox.delete(0, tk.END)  # Clear the Listbox first
+    global enemy_morale_down
 
-    if show_damage:
-        button_1.config(bg='#FF4040')
-    else:
-        button_1.config(bg='#FFD39B')
+    enemy_morale_down = not enemy_morale_down  # Toggle the state
 
-    refresh_listbox()
-
-    show_damage = not show_damage  # Toggle the state
+    button_color(button_2, enemy_morale_down)
 
 def global_init():
+    global show_damage
+
     show_damage = False
-    enemy_morale_down = False
+    # enemy_morale_down = False
 
 if __name__ == '__main__':
 
-    global_init()
+    # global_init()
 
     window = create_window()
 
@@ -261,8 +247,11 @@ if __name__ == '__main__':
     for item in Json_list :
         new_Listbox.insert( tk.END, item )
 
+    show_damage = True
+    enemy_morale_down = True
+
     button_1 = tk.Button(text='效果 : 傷害',        bg='#FF4040', font=(14), command=toggle_damage_lines)
-    button_2 = tk.Button(text='效果 : 敵方士氣降低', bg='#FF4040', font=(14))
+    button_2 = tk.Button(text='效果 : 敵方士氣降低', bg='#FF4040', font=(14), command=toggle_button2_lines)
 
     new_Listbox.place(x=0,y=100)
     button_1.place(x=0, y=0)
