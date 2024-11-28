@@ -1,6 +1,7 @@
 import tkinter as tk
 # import tkFont as tf
 import json
+from typing import List, Dict, Any
 
 def load_json(file_path: str) -> dict:
     """
@@ -32,51 +33,65 @@ def load_json(file_path: str) -> dict:
         # 處理 JSON 格式錯誤的例外情況
         raise ValueError(f"無法解析 JSON 格式：{file_path}") from e
 
-def dict_parse(srcJson):
-    result =[]
+def parse_dictionary(source_json: Dict[str, Any]) -> List[str]:
+    """
+    Parse a nested dictionary and format its content into a list of strings.
 
-    for key, value in srcJson.items() :
-        temp_str = key
-        temp_str += '  ' * ( 4 - len(key) )
-        temp_str += "{}".format( ' : ' )
-        # print(key)
-        # print(len(key))
-        # print(value)
-        # print(type(key))
-        # print(type(value))
-        # print('')
+    Args:
+        source_json (Dict[str, Any]): 
+            A dictionary where keys are strings and values are either strings, dictionaries, or other nested structures.
+            
+            Example:
+            {
+                "key1": {
+                    "attribute1": "value1",
+                    "attribute2": {"效果": "有效", "attribute3": "value3"}
+                },
+                "key2": {"attribute4": "value4"}
+            }
 
-        for key1, value1 in value.items() :
-            # print(key1)
-            # print(value1)
-            # print(type(key1))
-            # print(type(value1))
-            if key1 == '對據點':
+    Returns:
+        List[str]: A list of formatted strings representing the parsed dictionary content.
+
+        Example Output:
+        [
+            "key1    : attribute1 : value1 attribute2 : 有效 attribute3 : value3 ",
+            "key2    : attribute4 : value4 "
+        ]
+    """
+    # 初始化結果列表
+    result = []
+    
+    for key, value in source_json.items():
+        # 建立每個主鍵的輸出字串
+        formatted_str = key
+        formatted_str += '  ' * (4 - len(key))  # 對齊用的空白
+        formatted_str += " : "
+        
+        # 遍歷主鍵對應的值
+        for sub_key, sub_value in value.items():
+            if sub_key == '對據點':  # 忽略名為 "對據點" 的鍵
                 continue
-
-            if type(value1) is str :
-                temp_str += key1 + " : " + value1 + ' '
-            if type(value1) is dict :
-                if value1['效果'] == 'N/A':
-                    temp_str += key1 + " : " + 'N/A '
+            
+            # 處理子屬性為字串的情況
+            if isinstance(sub_value, str):
+                formatted_str += f"{sub_key} : {sub_value} "
+            # 處理子屬性為字典的情況
+            elif isinstance(sub_value, dict):
+                if sub_value.get('效果') == 'N/A':  # 如果效果為 'N/A'，直接標記並跳過詳細處理
+                    formatted_str += f"{sub_key} : N/A "
                     continue
-
-                for key2, value2 in value1.items() :
-                    # print(key2)
-                    # print(value2)
-                    # print(type(key2))
-                    # print(type(value2))
-                    if key2 == '效果':
-                        temp_str += key1 + " : " + value2 + ' '
-                    elif type(value2) is str :
-                        temp_str += key2 + " : " + value2 + ' '
-                    elif type(value2) is int :
-                        temp_str += key2 + " : " + str(value2) + ' '
-
-        result.append(temp_str)
-
+                # 遍歷內層字典
+                for inner_key, inner_value in sub_value.items():
+                    if inner_key == '效果':
+                        formatted_str += f"{sub_key} : {inner_value} "
+                    elif isinstance(inner_value, (str, int)):  # 處理字串或整數
+                        formatted_str += f"{inner_key} : {inner_value} "
+        
+        # 將格式化的字串加入結果列表
+        result.append(formatted_str)
+    
     return result
-
 
 def json_data_generate():
     san14_data = {
@@ -161,7 +176,7 @@ if __name__ == '__main__':
 
     srcJson = load_json('san14.json')
 
-    Json_list = dict_parse(srcJson)
+    Json_list = parse_dictionary(srcJson)
 
     index = 0
 
