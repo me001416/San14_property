@@ -111,10 +111,22 @@ if __name__ == '__main__':
 
     index = 0
 
+    new_Listbox = tk.Listbox( window, height=100, width=100 )
+
+    scrollX = tk.Scrollbar(window, orient='horizontal')
+    scrollX.pack(side='bottom', fill='x')
+    scrollX.config(command=new_Listbox.xview)
+
+    scrollY  = tk.Scrollbar(window, orient='vertical')
+    scrollY .pack(side='right', fill='y')
+    scrollY .config(command=new_Listbox.yview)
+
     for item in Json_list :
         # print(item)
-        new_label = tk.Label(window, text=item)
-        new_label.grid(row=index,column=0)
+
+        new_Listbox.insert( index, item )
+        new_Listbox.place(x=0,y=100)
+
         index += 1
 
     window.mainloop()
