@@ -2,12 +2,6 @@ import tkinter as tk
 # import tkFont as tf
 import json
 
-def json_load():
-    with open('san14.json', 'r', encoding="utf-8") as srcF:
-        srcJson = json.load(srcF)
-
-    return srcJson
-
 def load_json(file_path: str) -> dict:
     """
     Load JSON data from a file.
@@ -165,8 +159,7 @@ if __name__ == '__main__':
 
     window = create_window()
 
-    srcJson = json_load()
-    # json_data_generate()
+    srcJson = load_json('san14.json')
 
     Json_list = dict_parse(srcJson)
 
