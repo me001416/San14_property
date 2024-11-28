@@ -84,7 +84,7 @@ def parse_dictionary(source_json: Dict[str, Any]) -> List[str]:
                 # 遍歷內層字典
                 for inner_key, inner_value in sub_value.items():
                     if inner_key == '效果':
-                        formatted_str += f"{sub_key} : {inner_value} "
+                        formatted_str += f"{sub_key} : [{inner_value}] "
                     elif isinstance(inner_value, (str, int)):  # 處理字串或整數
                         formatted_str += f"{inner_key} : {inner_value} "
         
@@ -170,6 +170,26 @@ def create_window() -> tk.Tk:
     
     return window
 
+def toggle_damage_lines():
+    """
+    Toggle the visibility of lines in new_Listbox that contain '[傷害]'.
+    """
+    global show_damage
+
+    new_Listbox.delete(0, tk.END)  # Clear the Listbox first
+
+    if show_damage:
+        # Add all lines back
+        for line in Json_list:
+            new_Listbox.insert(tk.END, line)
+    else:
+        # Add only lines that do not contain '[傷害]'
+        for line in Json_list:
+            if '[傷害]' not in line:
+                new_Listbox.insert(tk.END, line)
+
+    show_damage = not show_damage  # Toggle the state
+
 if __name__ == '__main__':
 
     window = create_window()
@@ -178,15 +198,11 @@ if __name__ == '__main__':
 
     Json_list = parse_dictionary(srcJson)
 
-    index = 0
-
     scrollX = tk.Scrollbar(window, orient='horizontal')
     scrollX.pack(side='bottom', fill='x')
 
     scrollY  = tk.Scrollbar(window, orient='vertical')
     scrollY .pack(side='right', fill='y')
-
-    # listbotx_font = tk.Font(size = 24)
 
     new_Listbox = tk.Listbox( window, height=100, width=150, xscrollcommand=scrollX.set, yscrollcommand=scrollY.set, font=(14) )
 
@@ -194,11 +210,13 @@ if __name__ == '__main__':
     scrollY.config(command=new_Listbox.yview)
 
     for item in Json_list :
-        # print(item)
+        new_Listbox.insert( tk.END, item )
 
-        new_Listbox.insert( index, item )
-        new_Listbox.place(x=0,y=100)
+    show_damage = True
 
-        index += 1
+    button_1 = tk.Button(text='效果 : 傷害', font=(14), command=toggle_damage_lines)
+
+    new_Listbox.place(x=0,y=100)
+    button_1.place(x=0, y=0)
 
     window.mainloop()
