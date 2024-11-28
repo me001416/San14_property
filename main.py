@@ -14,8 +14,11 @@ def dict_parse(srcJson):
     result =[]
 
     for key, value in srcJson.items() :
-        temp_str = key + " : "
+        temp_str = key
+        temp_str += '  ' * ( 4 - len(key) )
+        temp_str += "{}".format( ' : ' )
         # print(key)
+        # print(len(key))
         # print(value)
         # print(type(key))
         # print(type(value))
@@ -26,12 +29,22 @@ def dict_parse(srcJson):
             # print(value1)
             # print(type(key1))
             # print(type(value1))
+            if type(value1) is str :
+                temp_str += key1 + " : " + value1 + ' '
             if type(value1) is dict :
                 for key2, value2 in value1.items() :
                     # print(key2)
                     # print(value2)
                     # print(type(key2))
                     # print(type(value2))
+                    if type(value2) is str :
+                        temp_str += key2 + " : " + value2
+                    if type(value2) is int :
+                        temp_str += key2 + " : " + str(value2)
+
+        result.append(temp_str)
+
+    return result
 
 
 def json_data_generate():
@@ -88,7 +101,7 @@ if __name__ == '__main__':
     window = tk.Tk()
     window.title('三國志14 戰法')
     window.geometry('380x400')
-    window.resizable(False, False)
+    window.resizable(True, True)
     # window.iconbitmap('icon.ico')
 
     srcJson = json_load()
@@ -96,5 +109,12 @@ if __name__ == '__main__':
 
     Json_list = dict_parse(srcJson)
 
+    index = 0
 
-    # window.mainloop()
+    for item in Json_list :
+        # print(item)
+        new_label = tk.Label(window, text=item)
+        new_label.grid(row=index,column=0)
+        index += 1
+
+    window.mainloop()
