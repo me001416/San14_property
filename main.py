@@ -111,7 +111,7 @@ if __name__ == '__main__':
 
     index = 0
 
-    new_Listbox = tk.Listbox( window, height=100, width=100 )
+    new_Listbox = tk.Listbox( window, height=200, width=200 )
 
     scrollX = tk.Scrollbar(window, orient='horizontal')
     scrollX.pack(side='bottom', fill='x')
