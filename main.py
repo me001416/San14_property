@@ -181,6 +181,9 @@ def refresh_listbox():
         if "[敵方士氣降低]" in line and not enemy_morale_down:
             continue
 
+        if "[混亂]" in line and not chaos:
+            continue
+
         filtered_items.append(line)
 
     # Clear the Listbox first
@@ -217,6 +220,16 @@ def toggle_button2_lines():
 
     button_color(button_2, enemy_morale_down)
 
+def toggle_button3_lines():
+    """
+    Toggle the visibility of lines in new_Listbox that contain '[傷害]'.
+    """
+    global chaos
+
+    chaos = not chaos  # Toggle the state
+
+    button_color(button_3, chaos)
+
 def global_init():
     global show_damage
 
@@ -247,14 +260,36 @@ if __name__ == '__main__':
     for item in Json_list :
         new_Listbox.insert( tk.END, item )
 
-    show_damage = True
-    enemy_morale_down = True
+    show_damage = True # 傷害
+    enemy_morale_down = True # 敵方士氣降低
+    chaos = True  # 混亂
+    arson = True  # 放火
+    halt = True  # 止步
+    our_morale_increase = True  # 我方士氣上升
+    our_attack_increase = True  # 我方攻軍上升
+    our_siege_increase = True  # 我方破城上升
+    enemy_attack_decrease = True  # 敵方攻軍降低
+    enemy_siege_decrease = True  # 敵方攻城降低
+    enemy_breach_decrease = True  # 敵方破城降低
+    enemy_defense_decrease = True  # 敵方防禦降低
+    enemy_mobility_decrease = True  # 敵方機動降低
+    halt_action = True  # 止步
+    chaos_effect = True  # 混亂
+    provoke = True  # 挑釁
+    wounded_recovery = True  # 傷兵回復
+    status_abnormality_removal = True  # 異常狀態解除
+    durability_damage = True  # 城池耐久傷害
+    enemy_all_stats_decrease = True  # 敵方全能力降低
+    our_all_stats_increase = True  # 我方全能力上升
+    enemy_full_status_abnormality = True  # 敵方全狀態異常
 
     button_1 = tk.Button(text='效果 : 傷害',        bg='#FF4040', font=(14), command=toggle_damage_lines)
     button_2 = tk.Button(text='效果 : 敵方士氣降低', bg='#FF4040', font=(14), command=toggle_button2_lines)
+    button_3 = tk.Button(text='效果 : 混亂',        bg='#FF4040', font=(14), command=toggle_button3_lines)
 
     new_Listbox.place(x=0,y=100)
     button_1.place(x=0, y=0)
     button_2.place(x=115, y=00)
+    button_3.place(x=310, y=00)
 
     window.mainloop()
