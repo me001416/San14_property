@@ -1,4 +1,5 @@
 import tkinter as tk
+# import tkFont as tf
 import json
 
 def json_load():
@@ -111,15 +112,18 @@ if __name__ == '__main__':
 
     index = 0
 
-    new_Listbox = tk.Listbox( window, height=200, width=200 )
-
     scrollX = tk.Scrollbar(window, orient='horizontal')
     scrollX.pack(side='bottom', fill='x')
-    scrollX.config(command=new_Listbox.xview)
 
     scrollY  = tk.Scrollbar(window, orient='vertical')
     scrollY .pack(side='right', fill='y')
-    scrollY .config(command=new_Listbox.yview)
+
+    # listbotx_font = tk.Font(size = 24)
+
+    new_Listbox = tk.Listbox( window, height=100, width=150, xscrollcommand=scrollX.set, yscrollcommand=scrollY.set, font=(14) )
+
+    scrollX.config(command=new_Listbox.xview)
+    scrollY.config(command=new_Listbox.yview)
 
     for item in Json_list :
         # print(item)
