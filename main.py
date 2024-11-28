@@ -3,6 +3,10 @@ import tkinter as tk
 import json
 from typing import List, Dict, Any
 
+
+global show_damage
+global enemy_morale_down
+
 def load_json(file_path: str) -> dict:
     """
     Load JSON data from a file.
@@ -171,42 +175,71 @@ def create_window() -> tk.Tk:
     return window
 
 def refresh_listbox():
+
+    filtered_items = []
+
+    for line in Json_list:
+        if "[傷害]" in line and not show_damage:
+            continue
+
+        if "[敵方士氣降低]" in line and not enemy_morale_down:
+            continue
+
+        filtered_items.append(line)
+
+    
     # Clear the Listbox first
     new_Listbox.delete(0, tk.END)
 
-    if show_damage:
-        # Add all lines back
-        for line in Json_list:
-            new_Listbox.insert(tk.END, line)
-    else:
-        # Add only lines that do not contain '[傷害]'
-        for line in Json_list:
-            if '[傷害]' not in line:
-                new_Listbox.insert(tk.END, line)
+    for item in filtered_items:
+        new_Listbox.insert("end", item)
 
-def toggle_damage_lines():
+def button_color(src_button, flag):
+    if flag:
+        src_button.config(bg='#FF4040')
+    else:
+        src_button.config(bg='#FFD39B')
+
+def toggle_damage_lines(src_button, flag):
     """
     Toggle the visibility of lines in new_Listbox that contain '[傷害]'.
     """
-    global show_damage
+    # global show_damage
 
     new_Listbox.delete(0, tk.END)  # Clear the Listbox first
 
     if show_damage:
         button_1.config(bg='#FF4040')
-        # Add all lines back
-        for line in Json_list:
-            new_Listbox.insert(tk.END, line)
     else:
         button_1.config(bg='#FFD39B')
-        # Add only lines that do not contain '[傷害]'
-        for line in Json_list:
-            if '[傷害]' not in line:
-                new_Listbox.insert(tk.END, line)
+
+    refresh_listbox()
+
+    show_damage = not show_damage  # Toggle the state
+    
+
+def toggle_damage_lines_():
+    """
+    Toggle the visibility of lines in new_Listbox that contain '[傷害]'.
+    """
+    new_Listbox.delete(0, tk.END)  # Clear the Listbox first
+
+    if show_damage:
+        button_1.config(bg='#FF4040')
+    else:
+        button_1.config(bg='#FFD39B')
+
+    refresh_listbox()
 
     show_damage = not show_damage  # Toggle the state
 
+def global_init():
+    show_damage = False
+    enemy_morale_down = False
+
 if __name__ == '__main__':
+
+    global_init()
 
     window = create_window()
 
@@ -227,8 +260,6 @@ if __name__ == '__main__':
 
     for item in Json_list :
         new_Listbox.insert( tk.END, item )
-
-    show_damage = False
 
     button_1 = tk.Button(text='效果 : 傷害',        bg='#FF4040', font=(14), command=toggle_damage_lines)
     button_2 = tk.Button(text='效果 : 敵方士氣降低', bg='#FF4040', font=(14))
