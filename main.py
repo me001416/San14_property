@@ -170,6 +170,20 @@ def create_window() -> tk.Tk:
     
     return window
 
+def refresh_listbox():
+    # Clear the Listbox first
+    new_Listbox.delete(0, tk.END)
+
+    if show_damage:
+        # Add all lines back
+        for line in Json_list:
+            new_Listbox.insert(tk.END, line)
+    else:
+        # Add only lines that do not contain '[傷害]'
+        for line in Json_list:
+            if '[傷害]' not in line:
+                new_Listbox.insert(tk.END, line)
+
 def toggle_damage_lines():
     """
     Toggle the visibility of lines in new_Listbox that contain '[傷害]'.
@@ -179,10 +193,12 @@ def toggle_damage_lines():
     new_Listbox.delete(0, tk.END)  # Clear the Listbox first
 
     if show_damage:
+        button_1.config(bg='#FF4040')
         # Add all lines back
         for line in Json_list:
             new_Listbox.insert(tk.END, line)
     else:
+        button_1.config(bg='#FFD39B')
         # Add only lines that do not contain '[傷害]'
         for line in Json_list:
             if '[傷害]' not in line:
@@ -212,11 +228,13 @@ if __name__ == '__main__':
     for item in Json_list :
         new_Listbox.insert( tk.END, item )
 
-    show_damage = True
+    show_damage = False
 
-    button_1 = tk.Button(text='效果 : 傷害', font=(14), command=toggle_damage_lines)
+    button_1 = tk.Button(text='效果 : 傷害',        bg='#FF4040', font=(14), command=toggle_damage_lines)
+    button_2 = tk.Button(text='效果 : 敵方士氣降低', bg='#FF4040', font=(14))
 
     new_Listbox.place(x=0,y=100)
     button_1.place(x=0, y=0)
+    button_2.place(x=115, y=00)
 
     window.mainloop()
