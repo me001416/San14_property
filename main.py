@@ -6,10 +6,37 @@ def json_load():
     with open('san14.json', 'r', encoding="utf-8") as srcF:
         srcJson = json.load(srcF)
 
-    # print(srcJson)
-    # print(type(srcJson))
-
     return srcJson
+
+def load_json(file_path: str) -> dict:
+    """
+    Load JSON data from a file.
+
+    Args:
+        file_path (str): The path to the JSON file.
+
+    Returns:
+        dict: The parsed JSON data.
+
+    Example:
+        >>> data = load_json('san14.json')
+        >>> print(data)
+        {'key': 'value'}
+
+    繁體中文：
+    從指定檔案載入 JSON 資料並解析為字典格式。
+    """
+    try:
+        # 開啟檔案並載入 JSON 資料
+        with open(file_path, 'r', encoding="utf-8") as srcF:
+            srcJson = json.load(srcF)
+        return srcJson
+    except FileNotFoundError as e:
+        # 處理檔案找不到的例外情況
+        raise FileNotFoundError(f"檔案未找到：{file_path}") from e
+    except json.JSONDecodeError as e:
+        # 處理 JSON 格式錯誤的例外情況
+        raise ValueError(f"無法解析 JSON 格式：{file_path}") from e
 
 def dict_parse(srcJson):
     result =[]
@@ -124,10 +151,10 @@ def create_window() -> tk.Tk:
     window = tk.Tk()
     
     # 設定視窗標題
-    window.title('三國志14 戰法')  # 設定遊戲名稱作為標題
+    window.title('三國志14 戰法')
     
     # 設定視窗尺寸
-    window.geometry('380x400')  # 寬 380, 高 400 像素
+    window.geometry('380x400')
     
     # 設定視窗大小可調整
     window.resizable(True, True)  # 允許水平與垂直調整
@@ -136,11 +163,7 @@ def create_window() -> tk.Tk:
 
 if __name__ == '__main__':
 
-    window = tk.Tk()
-    window.title('三國志14 戰法')
-    window.geometry('380x400')
-    window.resizable(True, True)
-    # window.iconbitmap('icon.ico')
+    window = create_window()
 
     srcJson = json_load()
     # json_data_generate()
