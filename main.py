@@ -184,6 +184,9 @@ def refresh_listbox():
         if "[混亂]" in line and not chaos:
             continue
 
+        if "[放火]" in line and not arson:
+            continue
+
         filtered_items.append(line)
 
     # Clear the Listbox first
@@ -211,9 +214,6 @@ def toggle_damage_lines():
     button_color(button_1, show_damage)
 
 def toggle_button2_lines():
-    """
-    Toggle the visibility of lines in new_Listbox that contain '[傷害]'.
-    """
     global enemy_morale_down
 
     enemy_morale_down = not enemy_morale_down  # Toggle the state
@@ -221,14 +221,18 @@ def toggle_button2_lines():
     button_color(button_2, enemy_morale_down)
 
 def toggle_button3_lines():
-    """
-    Toggle the visibility of lines in new_Listbox that contain '[傷害]'.
-    """
     global chaos
 
     chaos = not chaos  # Toggle the state
 
     button_color(button_3, chaos)
+
+def toggle_button4_lines():
+    global arson
+
+    arson = not arson  # Toggle the state
+
+    button_color(button_4, arson)
 
 def global_init():
     global show_damage
@@ -286,10 +290,12 @@ if __name__ == '__main__':
     button_1 = tk.Button(text='效果 : 傷害',        bg='#FF4040', font=(14), command=toggle_damage_lines)
     button_2 = tk.Button(text='效果 : 敵方士氣降低', bg='#FF4040', font=(14), command=toggle_button2_lines)
     button_3 = tk.Button(text='效果 : 混亂',        bg='#FF4040', font=(14), command=toggle_button3_lines)
+    button_4 = tk.Button(text='效果 : 放火',        bg='#FF4040', font=(14), command=toggle_button4_lines)
 
     new_Listbox.place(x=0,y=100)
     button_1.place(x=0, y=0)
     button_2.place(x=115, y=00)
     button_3.place(x=310, y=00)
+    button_4.place(x=425, y=00)
 
     window.mainloop()
