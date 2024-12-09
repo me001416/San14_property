@@ -2,8 +2,7 @@ import tkinter as tk
 import json
 from typing import List, Dict, Any
 
-flag_dict =
-{
+flag_dict = {
     'show_damage' : False,
     'enemy_morale_down' : False,
     'chaos' : False,
@@ -242,13 +241,7 @@ def toggle_button4_lines():
     button_color(button_4, arson)
 
 def toggle_button( src_button, flag ):
-    global flag_dict =
-    {
-        'show_damage' : False,
-        'enemy_morale_down' : False,
-        'chaos' : False,
-        'arson' : False
-    }
+    global flag_dict
 
     button_color( src_button, flag )
 
