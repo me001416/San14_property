@@ -203,15 +203,15 @@ def button_color(src_button, flag):
 
     refresh_listbox()
 
-def toggle_damage_lines():
-    """
-    Toggle the visibility of lines in new_Listbox that contain '[傷害]'.
-    """
-    global show_damage
+# def toggle_damage_lines():
+#     """
+#     Toggle the visibility of lines in new_Listbox that contain '[傷害]'.
+#     """
+#     global show_damage
 
-    show_damage = not show_damage  # Toggle the state
+#     show_damage = not show_damage  # Toggle the state
 
-    button_color(button_1, show_damage)
+#     button_color(button_1, show_damage)
 
 def toggle_button2_lines():
     global enemy_morale_down
@@ -233,6 +233,12 @@ def toggle_button4_lines():
     arson = not arson  # Toggle the state
 
     button_color(button_4, arson)
+
+def toggle_button( src_button, flag ):
+    
+    flag = not flag  # Toggle the state
+
+    button_color( src_button, flag )
 
 def global_init():
     global show_damage
@@ -287,10 +293,14 @@ if __name__ == '__main__':
     our_all_stats_increase = True  # 我方全能力上升
     enemy_full_status_abnormality = True  # 敵方全狀態異常
 
-    button_1 = tk.Button(text='效果 : 傷害',        bg='#FF4040', font=(14), command=toggle_damage_lines)
+    # button_1 = tk.Button(text='效果 : 傷害',        bg='#FF4040', font=(14), command=toggle_damage_lines)
+    button_1 = tk.Button(text='效果 : 傷害',        bg='#FF4040', font=(14))
     button_2 = tk.Button(text='效果 : 敵方士氣降低', bg='#FF4040', font=(14), command=toggle_button2_lines)
     button_3 = tk.Button(text='效果 : 混亂',        bg='#FF4040', font=(14), command=toggle_button3_lines)
     button_4 = tk.Button(text='效果 : 放火',        bg='#FF4040', font=(14), command=toggle_button4_lines)
+
+    foo = lambda: toggle_button( button_1, show_damage )
+    button_1.config( command=foo )
 
     new_Listbox.place(x=0,y=100)
     button_1.place(x=0, y=0)
