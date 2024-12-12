@@ -9,8 +9,8 @@ class FlagManager:
             ['chaos', False, '混亂'],
             ['arson', False, '放火']
         ]
-        self.Json_list
-        self.new_Listbox
+        self.Json_list = None
+        self.new_Listbox = None
 
     def toggle_button( self, src_button, index ):
         # 自定義按鈕切換邏輯
@@ -33,25 +33,24 @@ class FlagManager:
     def set_new_Listbox( self, src ):
         self.new_Listbox = src
 
+    def check_line( self, src ):
+        ret = False
+
+        for item in self.flag_list:
+            if item[2] in src and not item[1]:
+                ret = True
+                break
+        
+        return ret
+
     def refresh_listbox( self ):
 
         filtered_items = []
 
         for line in self.Json_list:
-            for item in self.flag_list:
-                if item[2] in line and not item[1]
-            if "[傷害]" in line and not show_damage:
+            if self.check_line( line ):
                 continue
-
-            if "[敵方士氣降低]" in line and not enemy_morale_down:
-                continue
-
-            if "[混亂]" in line and not chaos:
-                continue
-
-            if "[放火]" in line and not arson:
-                continue
-
+            
             filtered_items.append( line )
 
         # Clear the Listbox first

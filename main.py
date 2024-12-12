@@ -306,6 +306,8 @@ if __name__ == '__main__':
     button_4 = tk.Button(text='效果 : 放火',        bg='#FF4040', font=(14), command=toggle_button4_lines)
 
     fm = FlagManager()
+    fm.set_json_list(Json_list)
+    fm.set_new_Listbox(new_Listbox)
 
     foo = lambda: fm.toggle_button( button_1, 0 )
     button_1.config( command=foo )
