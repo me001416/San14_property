@@ -2,12 +2,12 @@ from San14_property.main import refresh_listbox
 
 class FlagManager:
     def __init__( self ):
-        self.flag_list = {
-            'show_damage': False,
-            'enemy_morale_down': False,
-            'chaos': False,
-            'arson': False
-        }
+        self.flag_list = [
+            ['show_damage', False, '傷害'],
+            ['enemy_morale_down', False, '敵方士氣降低'],
+            ['chaos', False, '混亂'],
+            ['arson', False, '放火']
+        ]
 
     def toggle_button( self, src_button, flag ):
         # 自定義按鈕切換邏輯
