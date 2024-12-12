@@ -191,7 +191,7 @@ if __name__ == '__main__':
     scrollY  = tk.Scrollbar(window, orient='vertical')
     scrollY .pack(side='right', fill='y')
 
-    new_Listbox = tk.Listbox( window, height=100, width=150, xscrollcommand=scrollX.set, yscrollcommand=scrollY.set, font=(14) )
+    new_Listbox = tk.Listbox( window, height=250, width=150, xscrollcommand=scrollX.set, yscrollcommand=scrollY.set, font=(14) )
 
     scrollX.config(command=new_Listbox.xview)
     scrollY.config(command=new_Listbox.yview)
@@ -199,33 +199,37 @@ if __name__ == '__main__':
     for item in Json_list :
         new_Listbox.insert( tk.END, item )
 
-    show_damage = True # 傷害
-    enemy_morale_down = True # 敵方士氣降低
-    chaos = True  # 混亂
-    arson = True  # 放火
-    halt = True  # 止步
-    our_morale_increase = True  # 我方士氣上升
-    our_attack_increase = True  # 我方攻軍上升
-    our_siege_increase = True  # 我方破城上升
-    enemy_attack_decrease = True  # 敵方攻軍降低
-    enemy_siege_decrease = True  # 敵方攻城降低
-    enemy_breach_decrease = True  # 敵方破城降低
-    enemy_defense_decrease = True  # 敵方防禦降低
-    enemy_mobility_decrease = True  # 敵方機動降低
-    halt_action = True  # 止步
-    chaos_effect = True  # 混亂
     provoke = True  # 挑釁
-    wounded_recovery = True  # 傷兵回復
     status_abnormality_removal = True  # 異常狀態解除
-    durability_damage = True  # 城池耐久傷害
+    durability_damage = True  # 城池耐久損傷
     enemy_all_stats_decrease = True  # 敵方全能力降低
     our_all_stats_increase = True  # 我方全能力上升
     enemy_full_status_abnormality = True  # 敵方全狀態異常
+    # 我方機動上升
+    # 我方防禦上升
 
-    button_1 = tk.Button(text='效果 : 傷害',        bg='#FF4040', font=(14))
-    button_2 = tk.Button(text='效果 : 敵方士氣降低', bg='#FF4040', font=(14))
-    button_3 = tk.Button(text='效果 : 混亂',        bg='#FF4040', font=(14))
-    button_4 = tk.Button(text='效果 : 放火',        bg='#FF4040', font=(14))
+    button_1 = tk.Button(text='傷害',        bg='#FF4040', font=(14))
+    button_2 = tk.Button(text='敵方士氣降低', bg='#FF4040', font=(14))
+    button_3 = tk.Button(text='混亂',        bg='#FF4040', font=(14))
+    button_4 = tk.Button(text='放火',        bg='#FF4040', font=(14))
+    button_5 = tk.Button(text='止步',        bg='#FF4040', font=(14))
+    button_6 = tk.Button(text='我方士氣上升',        bg='#FF4040', font=(14))
+    button_7 = tk.Button(text='我方攻軍上升', bg='#FF4040', font=(14))
+    button_8 = tk.Button(text='我方破城上升', bg='#FF4040', font=(14))
+    button_9 = tk.Button(text='敵方攻軍降低', bg='#FF4040', font=(14))
+    button_10 = tk.Button(text='敵方攻城降低', bg='#FF4040', font=(14))
+    button_11 = tk.Button(text='敵方破城降低', bg='#FF4040', font=(14))
+    button_12 = tk.Button(text='敵方防禦降低', bg='#FF4040', font=(14))
+    button_13 = tk.Button(text='敵方機動降低', bg='#FF4040', font=(14))
+    button_14 = tk.Button(text='傷兵回復', bg='#FF4040', font=(14))
+    button_15 = tk.Button(text='挑釁', bg='#FF4040', font=(14))
+    button_16 = tk.Button(text='異常狀態解除', bg='#FF4040', font=(14))
+    button_17 = tk.Button(text='城池耐久損傷', bg='#FF4040', font=(14))
+    button_18 = tk.Button(text='敵方全能力降低', bg='#FF4040', font=(14))
+    button_19 = tk.Button(text='我方全能力上升', bg='#FF4040', font=(14))
+    button_20 = tk.Button(text='敵方全狀態異常', bg='#FF4040', font=(14))
+    button_21 = tk.Button(text='我方機動上升', bg='#FF4040', font=(14))
+    button_22 = tk.Button(text='我方防禦上升', bg='#FF4040', font=(14))
 
     fm = FlagManager()
     fm.set_json_list(Json_list)
@@ -243,10 +247,82 @@ if __name__ == '__main__':
     foo4 = lambda: fm.toggle_button( button_4, 3 )
     button_4.config( command=foo4 )
 
+    foo5 = lambda: fm.toggle_button( button_5, 4 )
+    button_5.config( command=foo5 )
+
+    foo6 = lambda: fm.toggle_button( button_6, 5 )
+    button_6.config( command=foo6 )
+
+    foo7 = lambda: fm.toggle_button(button_7, 6)
+    button_7.config(command=foo7)
+
+    foo8 = lambda: fm.toggle_button(button_8, 7)
+    button_8.config(command=foo8)
+
+    foo9 = lambda: fm.toggle_button(button_9, 8)
+    button_9.config(command=foo9)
+
+    foo10 = lambda: fm.toggle_button(button_10, 9)
+    button_10.config(command=foo10)
+
+    foo11 = lambda: fm.toggle_button(button_11, 10)
+    button_11.config(command=foo11)
+
+    foo12 = lambda: fm.toggle_button(button_12, 11)
+    button_12.config(command=foo12)
+
+    foo13 = lambda: fm.toggle_button(button_13, 12)
+    button_13.config(command=foo13)
+
+    foo14 = lambda: fm.toggle_button(button_14, 13)
+    button_14.config(command=foo14)
+
+    foo15 = lambda: fm.toggle_button(button_15, 14)
+    button_15.config(command=foo15)
+
+    foo16 = lambda: fm.toggle_button(button_16, 15)
+    button_16.config(command=foo16)
+
+    foo17 = lambda: fm.toggle_button(button_17, 16)
+    button_17.config(command=foo17)
+
+    foo18 = lambda: fm.toggle_button(button_18, 17)
+    button_18.config(command=foo18)
+
+    foo19 = lambda: fm.toggle_button(button_19, 18)
+    button_19.config(command=foo19)
+
+    foo20 = lambda: fm.toggle_button(button_20, 19)
+    button_20.config(command=foo20)
+
+    foo21 = lambda: fm.toggle_button(button_21, 20)
+    button_21.config(command=foo21)
+
+    foo22 = lambda: fm.toggle_button(button_22, 21)
+    button_22.config(command=foo22)
+
     new_Listbox.place(x=0,y=100)
     button_1.place(x=0, y=0)
-    button_2.place(x=115, y=00)
-    button_3.place(x=310, y=00)
-    button_4.place(x=425, y=00)
+    button_2.place(x=65, y=00)
+    button_3.place(x=210, y=00)
+    button_4.place(x=275, y=00)
+    button_5.place(x=340, y=00)
+    button_6.place(x=405, y=00)
+    button_7.place(x=550, y=0)
+    button_8.place(x=695, y=0)
+    button_9.place(x=0, y=50)
+    button_10.place(x=145, y=50)
+    button_11.place(x=290, y=50)
+    button_12.place(x=435, y=50)
+    button_13.place(x=580, y=50)
+    button_14.place(x=725, y=50)
+    button_15.place(x=840, y=0)
+    button_16.place(x=0, y=100)
+    button_17.place(x=145, y=100)
+    button_18.place(x=290, y=100)
+    button_19.place(x=455, y=100)
+    button_20.place(x=620, y=100)
+    button_21.place(x=765, y=100)
+    button_22.place(x=900, y=100)
 
     window.mainloop()

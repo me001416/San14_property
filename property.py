@@ -6,7 +6,17 @@ class FlagManager:
             [True, '傷害'],
             [True, '敵方士氣降低'],
             [True, '混亂'],
-            [True, '放火']
+            [True, '放火'],
+            [True, '止步'],
+            [True, '我方士氣上升'],
+            [True, '我方攻軍上升'],
+            [True, '我方破城上升'],
+            [True, '敵方攻軍降低'],
+            [True, '敵方攻城降低'],
+            [True, '敵方破城降低'],
+            [True, '敵方防禦降低'],
+            [True, '敵方機動降低'],
+            [True, '傷兵回復']
         ]
         self.Json_list = None
         self.new_Listbox = None
@@ -24,9 +34,6 @@ class FlagManager:
             src_button.config(bg='#FFD39B')
 
         self.refresh_listbox()
-
-    def return_value( self, index ):
-        return self.flag_list[index][0], self.flag_list[index][1]
 
     def set_json_list( self, src ):
         self.Json_list = src
