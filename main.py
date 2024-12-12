@@ -300,7 +300,7 @@ if __name__ == '__main__':
     enemy_full_status_abnormality = True  # 敵方全狀態異常
 
     # button_1 = tk.Button(text='效果 : 傷害',        bg='#FF4040', font=(14), command=toggle_damage_lines)
-    button_1 = tk.Button(text='效果 : 傷害',        bg='#FF4040', font=(14), command=toggle_button)
+    button_1 = tk.Button(text='效果 : 傷害',        bg='#FF4040', font=(14))
     button_2 = tk.Button(text='效果 : 敵方士氣降低', bg='#FF4040', font=(14), command=toggle_button2_lines)
     button_3 = tk.Button(text='效果 : 混亂',        bg='#FF4040', font=(14), command=toggle_button3_lines)
     button_4 = tk.Button(text='效果 : 放火',        bg='#FF4040', font=(14), command=toggle_button4_lines)
@@ -309,8 +309,17 @@ if __name__ == '__main__':
     fm.set_json_list(Json_list)
     fm.set_new_Listbox(new_Listbox)
 
-    foo = lambda: fm.toggle_button( button_1, 0 )
-    button_1.config( command=foo )
+    foo1 = lambda: fm.toggle_button( button_1, 0 )
+    button_1.config( command=foo1 )
+
+    foo2 = lambda: fm.toggle_button( button_2, 1 )
+    button_1.config( command=foo2 )
+
+    foo3 = lambda: fm.toggle_button( button_3, 1 )
+    button_1.config( command=foo3 )
+
+    foo4 = lambda: fm.toggle_button( button_4, 1 )
+    button_1.config( command=foo4 )
 
     new_Listbox.place(x=0,y=100)
     button_1.place(x=0, y=0)
