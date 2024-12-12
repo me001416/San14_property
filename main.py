@@ -177,84 +177,7 @@ def create_window() -> tk.Tk:
     
     return window
 
-def refresh_listbox():
-
-    filtered_items = []
-
-    for line in Json_list:
-        if "[傷害]" in line and not show_damage:
-            continue
-
-        if "[敵方士氣降低]" in line and not enemy_morale_down:
-            continue
-
-        if "[混亂]" in line and not chaos:
-            continue
-
-        if "[放火]" in line and not arson:
-            continue
-
-        filtered_items.append(line)
-
-    # Clear the Listbox first
-    new_Listbox.delete(0, tk.END)
-
-    for item in filtered_items:
-        new_Listbox.insert("end", item)
-
-def button_color(src_button, flag):
-    if flag:
-        src_button.config(bg='#FF4040')
-    else:
-        src_button.config(bg='#FFD39B')
-
-    refresh_listbox()
-
-def toggle_damage_lines():
-    """
-    Toggle the visibility of lines in new_Listbox that contain '[傷害]'.
-    """
-    global show_damage
-
-    show_damage = not show_damage  # Toggle the state
-
-    button_color(button_1, show_damage)
-
-def toggle_button2_lines():
-    global enemy_morale_down
-
-    enemy_morale_down = not enemy_morale_down  # Toggle the state
-
-    button_color(button_2, enemy_morale_down)
-
-def toggle_button3_lines():
-    global chaos
-
-    chaos = not chaos  # Toggle the state
-
-    button_color(button_3, chaos)
-
-def toggle_button4_lines():
-    global arson
-
-    arson = not arson  # Toggle the state
-
-    button_color(button_4, arson)
-
-def toggle_button( src_button, flag ):
-    global flag_dict
-
-    button_color( src_button, flag )
-
-def global_init():
-    global show_damage
-
-    show_damage = False
-    # enemy_morale_down = False
-
 if __name__ == '__main__':
-
-    # global_init()
 
     window = create_window()
 
@@ -299,7 +222,6 @@ if __name__ == '__main__':
     our_all_stats_increase = True  # 我方全能力上升
     enemy_full_status_abnormality = True  # 敵方全狀態異常
 
-    # button_1 = tk.Button(text='效果 : 傷害',        bg='#FF4040', font=(14), command=toggle_damage_lines)
     button_1 = tk.Button(text='效果 : 傷害',        bg='#FF4040', font=(14))
     button_2 = tk.Button(text='效果 : 敵方士氣降低', bg='#FF4040', font=(14))
     button_3 = tk.Button(text='效果 : 混亂',        bg='#FF4040', font=(14))

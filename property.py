@@ -1,4 +1,3 @@
-from main import refresh_listbox
 import tkinter as tk
 
 class FlagManager:
